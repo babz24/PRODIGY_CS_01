@@ -1,0 +1,45 @@
+letters = 'abcdefghijklmnopqrstuvwxyz'
+num_letters = len(letters)
+
+def encrypt(plaintext, key):
+    ciphertext = ''
+    for letter in plaintext:
+        letter = letter.lower()
+        if letter in letters:
+            index = letters.find(letter)
+            new_index = (index + key) % num_letters
+            ciphertext += letters[new_index]
+        else:
+            ciphertext += letter
+    return ciphertext
+
+def decrypt(ciphertext, key):
+    plaintext = ''
+    for letter in ciphertext:
+        letter = letter.lower()
+        if letter in letters:
+            index = letters.find(letter)
+            new_index = (index - key) % num_letters
+            plaintext += letters[new_index]
+        else:
+            plaintext += letter
+    return plaintext
+
+print('****ENCRYPTION AND DECRYPTION USING CAESAR CIPHER****\n')
+print('Press "e" for Encryption and "d" for Decryption')
+user_input = input('').lower()
+print()
+if user_input == 'e':
+    print('Encryption mode\n')
+    key = int(input('Enter the key (1-26): '))
+    text = input('Enter the text for encryption: ')
+    ciphertext = encrypt(text, key)
+    print(f'Ciphertext: {ciphertext}')
+elif user_input == 'd':
+    print('Decryption mode\n')
+    key = int(input('Enter the key (1-26): '))
+    text = input('Enter the text for decryption: ')
+    plaintext = decrypt(text, key)
+    print(f'Plaintext: {plaintext}')
+else:
+    print('Invalid input')
